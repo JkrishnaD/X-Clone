@@ -1,9 +1,11 @@
 "use client";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { SidebarLogo } from "./SidebarLogo";
-import { FaUser } from "react-icons/fa";
-import { IoIosNotifications } from "react-icons/io";
 import { SidebarIcon } from "./SidebarIcon";
+import { MdLogout, MdNotificationsNone, MdOutlineMail } from "react-icons/md";
+import { FaRegUser } from "react-icons/fa6";
+import { TweetButton } from "./TweetButton";
+import { Button } from "./Button";
 
 export const Sidebar = () => {
   const items = [
@@ -15,12 +17,17 @@ export const Sidebar = () => {
     {
       label: "Profile",
       href: "/users/123",
-      icon: FaUser,
+      icon: FaRegUser,
     },
     {
       label: "Notifications",
       href: "/notifications",
-      icon: IoIosNotifications,
+      icon: MdNotificationsNone,
+    },
+    {
+      label: "Message",
+      href: "/messages",
+      icon: MdOutlineMail,
     },
   ];
   return (
@@ -36,6 +43,8 @@ export const Sidebar = () => {
               icon={item.icon}
             />
           ))}
+          <SidebarIcon onClick={() => {}} label="Logout" icon={MdLogout} />
+          <TweetButton/>
         </div>
       </div>
     </div>
