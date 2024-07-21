@@ -1,7 +1,6 @@
 import { FollowBar } from "@/components/FollowBar";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "@/components/Header";
-import { Modal } from "@/components/Modal";
 
 export const Layout = () => {
   return (

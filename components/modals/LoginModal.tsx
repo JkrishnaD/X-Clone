@@ -36,7 +36,7 @@ export const LoginModal = () => {
       <Input
         label="Email"
         type="text"
-        placeholder="Email"
+        placeholder="email"
         value={email}
         onChange={(e) => {
           setEmail(e.target.value);
@@ -46,7 +46,7 @@ export const LoginModal = () => {
       <Input
         label="Password"
         type="text"
-        placeholder="Password"
+        placeholder="password"
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);

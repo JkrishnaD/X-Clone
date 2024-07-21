@@ -3,6 +3,9 @@ import { useSignupModal } from "@/hooks/useSignupModal";
 import { useCallback, useState } from "react";
 import { Input } from "../Input";
 import { Modal } from "../Modal";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 export const SignupModal = () => {
   const loginModal = useLoginModal();
@@ -17,25 +20,40 @@ export const SignupModal = () => {
   const onSubmit = useCallback(() => {
     try {
       setIsLoading(true);
-      //Add signup and Authentication
+
+      axios.post("/api/signup", {
+        email,
+        password,
+        username,
+        name,
+      });
+
+      toast.success("Account Created");
+      signIn("credentials", {
+        email,
+        password,
+      });
+      
+      SignupModal.onClose();
     } catch (error) {
-      alert(error);
+      toast.error("Something Went Wrong");
     } finally {
       setIsLoading(false);
     }
   }, [loginModal]);
 
-  const onToggle = useCallback(()=>{
-    if(isLoading){
-        return;
+  const onToggle = useCallback(() => {
+    if (isLoading) {
+      return;
     }
+
     loginModal.onOpen();
     SignupModal.onClose();
-  },[isLoading,loginModal,SignupModal]);
+  }, [isLoading, loginModal, SignupModal]);
 
   const bodyComponent = (
     <div className="flex flex-col gap-2">
-       <Input
+      <Input
         label="Name"
         type="text"
         placeholder="name"
@@ -44,7 +62,7 @@ export const SignupModal = () => {
           setName(e.target.value);
         }}
         disabled={isLoading}
-      /> 
+      />
       <Input
         label="Username"
         type="text"
@@ -58,7 +76,7 @@ export const SignupModal = () => {
       <Input
         label="Email"
         type="text"
-        placeholder="Email"
+        placeholder="email"
         value={email}
         onChange={(e) => {
           setEmail(e.target.value);
@@ -68,7 +86,7 @@ export const SignupModal = () => {
       <Input
         label="Password"
         type="text"
-        placeholder="Password"
+        placeholder="password"
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);
@@ -80,8 +98,13 @@ export const SignupModal = () => {
 
   const footerComponent = (
     <div className="text-neutral-400 flex gap-2">
-        <p>Already Have An Account?</p>
-        <span onClick={onToggle} className="font-bold cursor-pointer hover:underline hover:text-white">Sign In</span>
+      <p>Already Have An Account?</p>
+      <span
+        onClick={onToggle}
+        className="font-bold cursor-pointer hover:underline hover:text-white"
+      >
+        Sign In
+      </span>
     </div>
   );
 
